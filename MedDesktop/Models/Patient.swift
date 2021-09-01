@@ -11,16 +11,15 @@ protocol DocumentSerializable {
     init?(dictionary: [String: Any])
 }
 
-struct Patient {
+class Patient {
     var docId: String
     var cardNumber: Int
     var surname: String
     var name: String
     var patronymic: String?
     var dateOfBirth: String
-    var phoneNumber: String
+    var phoneNumber: String?
     var email: String?
-    var visit: [Visit]
     
     var dictionary: [String: Any] {
         return [
@@ -30,26 +29,40 @@ struct Patient {
             "name": name,
             "patronymic": patronymic ?? "",
             "dateOfBirth": dateOfBirth,
-            "phoneNumber": phoneNumber,
-            "email": email ?? "",
-            "visit": visit
+            "phoneNumber": phoneNumber ?? "",
+            "email": email ?? ""
         ]
     }
     
-}
-
-extension Patient: DocumentSerializable {
-    init?(dictionary: [String : Any]) {
-        guard let docId = dictionary["docId"] as? String,
-              let cardNumber = dictionary["cardNumber"] as? Int,
-              let surname = dictionary["surname"] as? String,
-              let name = dictionary["name"] as? String,
-              let patronymic = dictionary["patronymic"] as? String?,
-              let dateOfBirth = dictionary["dateOfBirth"] as? String,
-              let phoneNumber = dictionary["phoneNumber"] as? String,
-              let email = dictionary["email"] as? String?,
-              let visit = dictionary["visit"] as? [Visit] else { return nil }
-        self.init(docId: docId, cardNumber: cardNumber, surname: surname, name: name, patronymic: patronymic, dateOfBirth: dateOfBirth, phoneNumber: phoneNumber, email: email, visit: visit)
+    init(docId: String, cardNumber: Int, surname: String, name: String, patronymic: String?, dateOfBirth: String, phoneNumber: String?, email: String?) {
+        self.docId = docId
+        self.cardNumber = cardNumber
+        self.surname = surname
+        self.name = name
+        self.patronymic = patronymic
+        self.dateOfBirth = dateOfBirth
+        self.phoneNumber = phoneNumber
+        self.email = email
     }
-
+    
+    convenience init() {
+        self.init(docId: "", cardNumber: 0, surname: "", name: "", patronymic: "", dateOfBirth: "", phoneNumber: "", email: "")
+    }
+    
+    convenience init(dictionary: [String : Any]) {
+        let docId = dictionary["docId"] as! String? ?? ""
+        let cardNumber = dictionary["cardNumber"] as! Int? ?? 0
+        let surname = dictionary["surname"] as! String? ?? ""
+        let name = dictionary["name"] as! String? ?? ""
+        let patronymic = dictionary["patronymic"] as! String? ?? ""
+        let dateOfBirth = dictionary["dateOfBirth"] as! String? ?? ""
+        let phoneNumber = dictionary["phoneNumber"] as! String? ?? ""
+        let email = dictionary["email"] as! String? ?? ""
+        
+        self.init(docId: docId, cardNumber: cardNumber, surname: surname, name: name, patronymic: patronymic, dateOfBirth: dateOfBirth, phoneNumber: phoneNumber, email: email)
+    }
 }
+
+
+    
+

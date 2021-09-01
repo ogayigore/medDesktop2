@@ -15,6 +15,7 @@ class PatientDetailsViewController: UIViewController {
     
     //MARK:- Public Properties
     
+    var dbService: DatabaseService!
     var patient: Patient?
     
     //MARK:- Lifecycle
@@ -25,8 +26,18 @@ class PatientDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dbService = DatabaseService()
         setup()
         barButtonsConfigure()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        dbService.getVisits(patient: patient!) {
+            DispatchQueue.main.async {
+                self.customView.visitTableView.reloadData()
+            }
+        }
     }
     
     //MARK:- Private Methods
@@ -58,6 +69,8 @@ class PatientDetailsViewController: UIViewController {
         
         customView.visitTableView.dataSource = self
         customView.visitTableView.delegate = self
+        
+        customView.visitTableView.register(VisitCell.self, forCellReuseIdentifier: VisitCell.reuseIdentifier)
     }
 
     private func calcAge(birthday: String) -> String! {
@@ -84,18 +97,19 @@ class PatientDetailsViewController: UIViewController {
 extension PatientDetailsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let visit = patient?.visit else { return 0 }
-        return visit.count
+        
+        return dbService.visitsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let model: Visit
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: VisitCell.reuseIdentifier, for: indexPath) as? VisitCell else {
+            print("ОБОСРАМС")
+            return UITableViewCell()
+        }
+        let visit = dbService.visitsArray[indexPath.row]
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: VisitCell.cell, for: indexPath) as? VisitCell else { return UITableViewCell() }
-        
-        model = (patient?.visit[indexPath.row])!
-        cell.configure(visitModel: model)
+        cell.configure(visitModel: visit)
         
         return cell
     }

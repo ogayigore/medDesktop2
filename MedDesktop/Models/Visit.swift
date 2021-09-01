@@ -7,29 +7,92 @@
 
 import Foundation
 
-struct Visit {
+class Visit {
+    var dbService: DatabaseService!
+    
     var procedureName: String
     var date: String
     var price: Double
-    var description: String
+    var complaint: String
+    var anamnesis: String
+    var status: String
+    var diagnosis: String
+    var appointment: String
+    var recomendation: String
+    var docId: String
     
     var dictionary: [String: Any] {
         return [
             "procedureName": procedureName,
             "date": date,
             "price": price,
-            "description": description
+            "complaint": complaint,
+            "anamnesis": anamnesis,
+            "status": status,
+            "diagnosis": diagnosis,
+            "appointment": appointment,
+            "recomendation": recomendation
         ]
     }
-}
-
-extension Visit: DocumentSerializable {
-    init?(dictionary: [String : Any]) {
-        guard let procedureName = dictionary["procedureName"] as? String,
-              let date = dictionary["date"] as? String,
-              let price = dictionary["price"] as? Double,
-              let description = dictionary["description"] as? String else { return nil }
-        self.init(procedureName: procedureName, date: date, price: price, description: description)
+    
+    init(procedureName: String, date: String, price: Double, complaint: String, anamnesis: String, status: String, diagnosis: String, appointment: String, recomendation: String, docId: String) {
+        self.procedureName = procedureName
+        self.date = date
+        self.price = price
+        self.complaint = complaint
+        self.anamnesis = anamnesis
+        self.status = status
+        self.diagnosis = diagnosis
+        self.appointment = appointment
+        self.recomendation = recomendation
+        self.docId = docId
     }
     
+    convenience init() {
+        self.init(procedureName: "", date: "", price: 0, complaint: "", anamnesis: "", status: "", diagnosis: "", appointment: "", recomendation: "", docId: "")
+    }
+    
+    convenience init(dictionary: [String : Any]) {
+        let procedureName = dictionary["procedureName"] as! String? ?? ""
+        let date = dictionary["date"] as! String? ?? ""
+        let price = dictionary["price"] as! Double? ?? 0
+        let complaint = dictionary["complaint"] as! String? ?? ""
+        let anamnesis = dictionary["anamnesis"] as! String? ?? ""
+        let status = dictionary["status"] as! String? ?? ""
+        let diagnosis = dictionary["diagnosis"] as! String? ?? ""
+        let appointment = dictionary["appointment"] as! String? ?? ""
+        let recomendation = dictionary["recomendation"] as! String? ?? ""
+        let docId = dictionary["docId"] as! String? ?? ""
+                
+        self.init(procedureName: procedureName, date: date, price: price, complaint: complaint, anamnesis: anamnesis, status: status, diagnosis: diagnosis, appointment: appointment, recomendation: recomendation, docId: docId)
+    }
+    
+    func saveData(patient: Patient, completion: @escaping (Bool) -> ()) {
+        dbService = DatabaseService()
+        let dataToSave: [String: Any] = self.dictionary
+        
+        if self.docId == "" {
+            dbService.ref = dbService?.db.collection("patients").document(patient.docId).collection("visits").addDocument(data: dataToSave) { error in
+                guard error == nil else {
+                    print("Error adding document: \(error!.localizedDescription)")
+                    return completion(false)
+                }
+                self.docId = self.dbService.ref!.documentID
+                print("Added document: \(self.docId) to patient: \(patient.docId)")
+                completion(true)
+            }
+        } else {
+            let ref = dbService.db.collection("patients").document(patient.docId).collection("visits").document(self.docId)
+            ref.setData(dataToSave) { error in
+                guard error == nil else {
+                    print("Error updating document: \(error!.localizedDescription)")
+                    return completion(false)
+                }
+                print("Updated document: \(self.docId) in patients: \(patient.docId)")
+                completion(true)
+            }
+        }
+        
+        
+    }
 }

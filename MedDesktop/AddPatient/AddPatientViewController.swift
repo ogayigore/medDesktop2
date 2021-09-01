@@ -59,25 +59,9 @@ class AddPatientViewController: UIViewController {
             customView.alertLabel.text = "Заполните обязательные поля!"
             
         } else {
-            let newPatient = Patient(docId: "", cardNumber: cardNumber, surname: surname, name: name, patronymic: patronymic, dateOfBirth: dateOfBirthString, phoneNumber: phoneNumber, email: email, visit: [])
+            let newPatient = Patient(docId: "", cardNumber: cardNumber, surname: surname, name: name, patronymic: patronymic, dateOfBirth: dateOfBirthString, phoneNumber: phoneNumber, email: email)
            
-            dbService?.ref = dbService?.db.collection("patients").addDocument(data: newPatient.dictionary, completion: { error in
-                if let error = error {
-                    print("Error adding document \(error.localizedDescription)")
-                } else {
-                    print("Document added with ID: \(self.dbService?.ref?.documentID)")
-                    guard let docId = self.dbService?.ref?.documentID else { return }
-                    self.dbService?.db.collection("patients").document(docId).updateData([
-                        "docId": "\(docId)"
-                    ]) { err in
-                        if let err = err {
-                            print("Error updating document: \(err)")
-                        } else {
-                            print("Document successfully updated")
-                        }
-                    }
-                }
-            })
+            dbService?.addPatient(patientDict: newPatient.dictionary)
             
             dismiss(animated: true, completion: nil)
         }

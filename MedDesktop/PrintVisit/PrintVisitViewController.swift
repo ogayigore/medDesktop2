@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import Firebase
 
 class PrintVisitViewController: UIViewController {
     
     //MARK:- Public Properties
     
     var dbService: DatabaseService?
+    var html: HTMLFile?
     var visit: Visit!
     var patient: Patient!
     
@@ -30,20 +32,27 @@ class PrintVisitViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dbService = DatabaseService()
+        html = HTMLFile()
         configureView()
     }
     
     //MARK:- Private methods
     
     private func configureView() {
-        customView.webView.loadHTMLString("<html><b>\(patient.surname)<b><br> <i>\(patient.name)</i><br><p>text</p>&#36;<br><p>eeded</p>ede<span>&#42; <img src='https://b1.filmpro.ru/c/444776.700xp.jpg'/></span>  </html>", baseURL: nil)
+        let htmlString = html!.getHtmlPage(patient: patient, visit: visit)
+        customView.webView.loadHTMLString(htmlString, baseURL: nil)
         customView.printButton.addTarget(self, action: #selector(printButtonTapped), for: .touchUpInside)
+        customView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
     }
     
     
 
     @objc private func printButtonTapped() {
         goToPrint()
+    }
+    
+    @objc private func cancelButtonTapped() {
+        dismiss(animated: true, completion: nil)
     }
     
     private func goToPrint() {
@@ -56,7 +65,19 @@ class PrintVisitViewController: UIViewController {
         let printController = UIPrintInteractionController.shared
         printController.printInfo = printInfo
         printController.printFormatter = customView.webView.viewPrintFormatter()
-        printController.present(animated: true, completionHandler: nil)
+        
+        
+        DispatchQueue.main.async {
+            printController.present(animated: true, completionHandler: nil)
+        }
+        
+        visit.saveData(patient: patient) { success in
+            if success {
+                print("Success saveData()")
+            } else {
+                print("Error saveData()")
+            }
+        }
         
     }
 }

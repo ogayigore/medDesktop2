@@ -51,7 +51,6 @@ class AuthenticationViewController: UIViewController {
         Auth.auth().settings?.isAppVerificationDisabledForTesting = false
         print("fetchButtonPressed()")
         guard phoneNumber != nil else { return }
-        print("PHONE NUMBER = \(phoneNumber)")
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber!, uiDelegate: nil) { verificationID, error in
             
             if error != nil {

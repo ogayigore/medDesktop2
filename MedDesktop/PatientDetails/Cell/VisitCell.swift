@@ -11,7 +11,7 @@ class VisitCell: UITableViewCell {
     
     //MARK:- Public Properties
     
-    static let cell = "visitCell"
+    static let reuseIdentifier = "visitCell"
     
     //MARK:-  Private Properties
     
@@ -40,7 +40,6 @@ class VisitCell: UITableViewCell {
     func configure(visitModel: Visit) {
         backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
         
-        
         procedureLabel.text = visitModel.procedureName
         dateLabel.text = visitModel.date
     }
@@ -48,7 +47,7 @@ class VisitCell: UITableViewCell {
     //MARK:- Initializers
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: VisitCell.cell)
+        super.init(style: style, reuseIdentifier: VisitCell.reuseIdentifier)
         setup()
     }
     

@@ -58,7 +58,7 @@ class MainView: UIView {
     private(set) lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(PatientCell.self, forCellReuseIdentifier: PatientCell.cell)
+        tableView.register(PatientCell.self, forCellReuseIdentifier: PatientCell.reuseIdentifier)
         tableView.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
         return tableView
     }()

@@ -18,6 +18,7 @@ class MainViewController: UIViewController {
     private(set) lazy var customView = view as! MainView
     private let searchController = UISearchController(searchResultsController: nil)
     
+    private var patients = [Patient]()
     private var filteredPatients = [Patient]()
     private var isSearchIsEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
@@ -38,7 +39,11 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         dbService = DatabaseService()
         configure()
-        loadData()
+        dbService.getPatients {
+            DispatchQueue.main.async {
+                self.customView.tableView.reloadData()
+            }
+        }
     }
     
     //MARK:- Private Methods
@@ -48,7 +53,6 @@ class MainViewController: UIViewController {
         customView.tableView.dataSource = self
         barButtonsConfigure()
         searchBarSetup()
-//        checkForUpdates()
     }
     
     private func barButtonsConfigure() {
@@ -61,34 +65,6 @@ class MainViewController: UIViewController {
     @objc private func addPatient() {
         let addPatientViewController = AddPatientViewController()
         self.present(addPatientViewController, animated: true, completion: nil)
-    }
-    
-    private func checkForUpdates() {
-        dbService.db.collection("patients").whereField("cardNumber", isGreaterThan: 0).addSnapshotListener { querySnapshot, error in
-            guard let snapshot = querySnapshot else { return }
-            snapshot.documentChanges.forEach { diff in
-                if diff.type == .added {
-                    self.dbService.patientArray.append(Patient(dictionary: diff.document.data())!)
-                    DispatchQueue.main.async {
-                        self.customView.tableView.reloadData()
-                    }
-                }
-            }
-        }
-    }
-    
-    private func loadData() {
-        dbService?.db.collection("patients").getDocuments(completion: { querySnapshot, error in
-            if let error = error {
-                print("\(error.localizedDescription)")
-            } else {
-                self.dbService?.patientArray = (querySnapshot?.documents.compactMap({Patient(dictionary: $0.data())}))!
-                self.dbService.patientArray.sort(by: {$0.cardNumber < $1.cardNumber})
-                DispatchQueue.main.async {
-                    self.customView.tableView.reloadData()
-                }
-            }
-        })
     }
     
     private func searchBarSetup() {
@@ -119,7 +95,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         let model: Patient
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PatientCell.cell, for: indexPath) as? PatientCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PatientCell.reuseIdentifier, for: indexPath) as? PatientCell else { return UITableViewCell() }
         
         if isFiltering {
             model = filteredPatients[indexPath.row]
@@ -128,7 +104,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             model = dbService.patientArray[indexPath.row]
             cell.configure(patientModel: model)
         }
-        
         return cell
     }
     

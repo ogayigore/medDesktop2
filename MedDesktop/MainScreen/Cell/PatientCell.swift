@@ -11,7 +11,7 @@ class PatientCell: UITableViewCell {
     
     //MARK:- Public Properties
     
-    static var cell = "patientCell"
+    static var reuseIdentifier = "patientCell"
     
     //MARK:- Private Properties
     
@@ -74,7 +74,7 @@ class PatientCell: UITableViewCell {
     //MARK:- Initializers
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: PatientCell.cell)
+        super.init(style: style, reuseIdentifier: PatientCell.reuseIdentifier)
         setup()
     }
     

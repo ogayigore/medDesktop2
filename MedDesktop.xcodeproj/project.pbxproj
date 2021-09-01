@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		30AC76195E525A5305657244 /* Pods_MedDesktop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81CC1538CB1917EB6C47D5D2 /* Pods_MedDesktop.framework */; };
+		5462F08626DF78CB005F1C52 /* HTMLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5462F08526DF78CB005F1C52 /* HTMLFile.swift */; };
 		547A077E268F35AD0095B74E /* ValidateCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A077D268F35AD0095B74E /* ValidateCodeView.swift */; };
 		547A0780268F35C50095B74E /* ValidateCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A077F268F35C50095B74E /* ValidateCodeViewController.swift */; };
 		547A0785269336F40095B74E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A0784269336F40095B74E /* MainViewController.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		0FB9FA9DD1A3AA4008CBD48E /* Pods-MedDesktop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MedDesktop.release.xcconfig"; path = "Target Support Files/Pods-MedDesktop/Pods-MedDesktop.release.xcconfig"; sourceTree = "<group>"; };
+		5462F08526DF78CB005F1C52 /* HTMLFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLFile.swift; sourceTree = "<group>"; };
 		547A077D268F35AD0095B74E /* ValidateCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateCodeView.swift; sourceTree = "<group>"; };
 		547A077F268F35C50095B74E /* ValidateCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateCodeViewController.swift; sourceTree = "<group>"; };
 		547A0784269336F40095B74E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			children = (
 				54A3FB2226C52CAD00AD2EAA /* PrintVisitView.swift */,
 				54A3FB2426C52CBB00AD2EAA /* PrintVisitViewController.swift */,
+				5462F08526DF78CB005F1C52 /* HTMLFile.swift */,
 			);
 			path = PrintVisit;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				547A0787269336FE0095B74E /* MainView.swift in Sources */,
 				54A3FB1B26C52A5500AD2EAA /* VisitCell.swift in Sources */,
 				54AC62032698664400D4829A /* Patient.swift in Sources */,
+				5462F08626DF78CB005F1C52 /* HTMLFile.swift in Sources */,
 				54AC627A26BADF9B00D4829A /* Visit.swift in Sources */,
 				54AC627C26BC23E900D4829A /* AddVisitView.swift in Sources */,
 				54F074FB268368C30085CC3E /* AuthenticationViewController.swift in Sources */,

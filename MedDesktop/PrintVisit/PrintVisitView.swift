@@ -42,6 +42,19 @@ class PrintVisitView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    private(set) lazy var cancelButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Отмена", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 26)
+        button.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+        button.layer.cornerRadius = 30
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.black.cgColor
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     //MARK:- Initializers
     
@@ -62,6 +75,7 @@ class PrintVisitView: UIView {
 //        addSubview(printTextView)
         addSubview(webView)
         addSubview(printButton)
+        addSubview(cancelButton)
         
         NSLayoutConstraint.activate([
 //            printTextView.topAnchor.constraint(equalTo: topAnchor, constant: 64),
@@ -72,10 +86,14 @@ class PrintVisitView: UIView {
             webView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             webView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
             printButton.topAnchor.constraint(equalTo: webView.bottomAnchor, constant: 16),
-            printButton.centerXAnchor.constraint(equalTo: webView.centerXAnchor),
+            printButton.rightAnchor.constraint(equalTo: webView.rightAnchor),
             printButton.widthAnchor.constraint(equalToConstant: 270),
             printButton.heightAnchor.constraint(equalToConstant: 60),
-            printButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32)
+            printButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32),
+            cancelButton.centerYAnchor.constraint(equalTo: printButton.centerYAnchor),
+            cancelButton.heightAnchor.constraint(equalTo: printButton.heightAnchor),
+            cancelButton.widthAnchor.constraint(equalTo: printButton.widthAnchor),
+            cancelButton.leftAnchor.constraint(equalTo: webView.leftAnchor)
         ])
         
     }
