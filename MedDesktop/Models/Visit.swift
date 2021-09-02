@@ -20,6 +20,7 @@ class Visit {
     var appointment: String
     var recomendation: String
     var docId: String
+    var visitNumber: Int
     
     var dictionary: [String: Any] {
         return [
@@ -31,11 +32,12 @@ class Visit {
             "status": status,
             "diagnosis": diagnosis,
             "appointment": appointment,
-            "recomendation": recomendation
+            "recomendation": recomendation,
+            "visitNumber": visitNumber
         ]
     }
     
-    init(procedureName: String, date: String, price: Double, complaint: String, anamnesis: String, status: String, diagnosis: String, appointment: String, recomendation: String, docId: String) {
+    init(procedureName: String, date: String, price: Double, complaint: String, anamnesis: String, status: String, diagnosis: String, appointment: String, recomendation: String, docId: String, visitNumber: Int) {
         self.procedureName = procedureName
         self.date = date
         self.price = price
@@ -46,10 +48,11 @@ class Visit {
         self.appointment = appointment
         self.recomendation = recomendation
         self.docId = docId
+        self.visitNumber = visitNumber
     }
     
     convenience init() {
-        self.init(procedureName: "", date: "", price: 0, complaint: "", anamnesis: "", status: "", diagnosis: "", appointment: "", recomendation: "", docId: "")
+        self.init(procedureName: "", date: "", price: 0, complaint: "", anamnesis: "", status: "", diagnosis: "", appointment: "", recomendation: "", docId: "", visitNumber: 0)
     }
     
     convenience init(dictionary: [String : Any]) {
@@ -63,8 +66,9 @@ class Visit {
         let appointment = dictionary["appointment"] as! String? ?? ""
         let recomendation = dictionary["recomendation"] as! String? ?? ""
         let docId = dictionary["docId"] as! String? ?? ""
+        let visitNumber = dictionary["visitNumber"] as! Int? ?? 0
                 
-        self.init(procedureName: procedureName, date: date, price: price, complaint: complaint, anamnesis: anamnesis, status: status, diagnosis: diagnosis, appointment: appointment, recomendation: recomendation, docId: docId)
+        self.init(procedureName: procedureName, date: date, price: price, complaint: complaint, anamnesis: anamnesis, status: status, diagnosis: diagnosis, appointment: appointment, recomendation: recomendation, docId: docId, visitNumber: visitNumber)
     }
     
     func saveData(patient: Patient, completion: @escaping (Bool) -> ()) {

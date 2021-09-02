@@ -48,7 +48,7 @@ class DatabaseService {
                 visit.docId = document.documentID
                 self.visitsArray.append(visit)
             }
-            self.visitsArray.sort(by: { $0.date < $1.date })
+            self.visitsArray.sort(by: { $0.visitNumber > $1.visitNumber })
             completion()
         }
     }

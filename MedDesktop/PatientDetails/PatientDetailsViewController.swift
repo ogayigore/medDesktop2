@@ -104,7 +104,7 @@ extension PatientDetailsViewController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: VisitCell.reuseIdentifier, for: indexPath) as? VisitCell else {
-            print("ОБОСРАМС")
+            
             return UITableViewCell()
         }
         let visit = dbService.visitsArray[indexPath.row]
@@ -112,6 +112,10 @@ extension PatientDetailsViewController: UITableViewDataSource, UITableViewDelega
         cell.configure(visitModel: visit)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 
 }

@@ -241,6 +241,7 @@ extension UITextField {
         let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 300))
         datePicker.datePickerMode = datePickerMode
         self.inputView = datePicker
+        datePicker.preferredDatePickerStyle = .wheels
         
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 44))
         toolBar.setItems([buttonItem(withSystemItemStyle: .cancel),

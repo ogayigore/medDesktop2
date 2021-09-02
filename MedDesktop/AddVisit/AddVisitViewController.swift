@@ -12,8 +12,10 @@ class AddVisitViewController: UIViewController {
     
     //MARK:- Public Properties
     
+    var dbService: DatabaseService?
     var patient: Patient!
     var visit: Visit!
+    var visitNumber = 0
     
     //MARK:- Private Properties
     
@@ -29,8 +31,12 @@ class AddVisitViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dbService = DatabaseService()
         configureView()
+        getVisitNumber(patient: patient) { [weak self] count in
+            self?.visitNumber = count + 1
         }
+    }
     
     //MARK:- Private Methods
     
@@ -41,10 +47,9 @@ class AddVisitViewController: UIViewController {
     
     @objc private func formButtonTapped() {
         
-        let age = calcAge(birthday: patient.dateOfBirth)
         let currentDate = getCurrentDate()
         
-        visit = Visit(procedureName: customView.procedureTextField.text!, date: currentDate, price: 1000, complaint: customView.complaintTextView.text!, anamnesis: customView.anamnesisTextView.text!, status: customView.statusTextView.text!, diagnosis: customView.diagnosisTextView.text!, appointment: customView.appointmentTextView.text!, recomendation: customView.recomendationTextView.text!, docId: "")
+        visit = Visit(procedureName: customView.procedureTextField.text!, date: currentDate, price: 1000, complaint: customView.complaintTextView.text!, anamnesis: customView.anamnesisTextView.text!, status: customView.statusTextView.text!, diagnosis: customView.diagnosisTextView.text!, appointment: customView.appointmentTextView.text!, recomendation: customView.recomendationTextView.text!, docId: "", visitNumber: visitNumber)
         
         let printVisitViewController = PrintVisitViewController()
         printVisitViewController.modalPresentationStyle = .fullScreen
@@ -82,5 +87,15 @@ class AddVisitViewController: UIViewController {
         } else {
             return "\(age)"
         }
+    }
+    
+    private func getVisitNumber(patient: Patient, completion: @escaping (Int) -> Void?) {
+        self.dbService?.db.collection("patients").document(patient.docId).collection("visits").getDocuments(completion: { snapshot, error in
+            if let count = snapshot?.documents.count {
+                completion(count)
+            } else {
+                completion(0)
+            }
+        })
     }
 }

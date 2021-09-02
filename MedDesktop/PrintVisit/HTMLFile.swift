@@ -22,9 +22,9 @@ class HTMLFile {
                         margin: 0;
                     }
                     .child {
-                        margin-left: 100px;
-                        margin-right: 100px;
-                        margin-bottom: 100px;
+                        margin-left: 70px;
+                        margin-right: 70px;
+                        margin-bottom: 70px;
                     }
                     </style>
             </head>
@@ -33,7 +33,7 @@ class HTMLFile {
                 <h2 align="center">Консультация невролога</h2>
                     <div class="child">
                         <b>Номер карты: \(patient.cardNumber)<br>
-                        <b>ФИО: \(patientFullName)<br>
+                        ФИО: \(patientFullName)<br>
                         Дата рождения: \(patient.dateOfBirth)<br>
                         Возраст: \(age!)<br>
                         Дата приёма: \(visit.date)<br>

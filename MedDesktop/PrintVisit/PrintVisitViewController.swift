@@ -12,7 +12,6 @@ class PrintVisitViewController: UIViewController {
     
     //MARK:- Public Properties
     
-    var dbService: DatabaseService?
     var html: HTMLFile?
     var visit: Visit!
     var patient: Patient!
@@ -31,7 +30,6 @@ class PrintVisitViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dbService = DatabaseService()
         html = HTMLFile()
         configureView()
     }
@@ -45,8 +43,6 @@ class PrintVisitViewController: UIViewController {
         customView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
     }
     
-    
-
     @objc private func printButtonTapped() {
         goToPrint()
     }
@@ -56,22 +52,20 @@ class PrintVisitViewController: UIViewController {
     }
     
     private func goToPrint() {
-        
-        let printInfo: UIPrintInfo = UIPrintInfo.printInfo()
-        printInfo.outputType = .general
-        printInfo.jobName = (customView.webView.request?.url!.absoluteString)!
-        printInfo.orientation = .portrait
-        
-        let printController = UIPrintInteractionController.shared
-        printController.printInfo = printInfo
-        printController.printFormatter = customView.webView.viewPrintFormatter()
-        
-        
         DispatchQueue.main.async {
+            let printInfo: UIPrintInfo = UIPrintInfo.printInfo()
+            printInfo.outputType = .general
+            printInfo.jobName = self.html!.getHtmlPage(patient: self.patient, visit: self.visit)
+            printInfo.orientation = .portrait
+            
+            let printController = UIPrintInteractionController.shared
+            printController.printInfo = printInfo
+            printController.printFormatter = self.customView.webView.viewPrintFormatter()
+            
             printController.present(animated: true, completionHandler: nil)
         }
         
-        visit.saveData(patient: patient) { success in
+        visit.saveData(patient: patient) { [weak self] success in
             if success {
                 print("Success saveData()")
             } else {

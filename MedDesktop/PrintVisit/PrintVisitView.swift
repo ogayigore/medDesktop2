@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WebKit
 
 class PrintVisitView: UIView {
     
@@ -21,8 +22,8 @@ class PrintVisitView: UIView {
         return textView
     }()
     
-    private(set) lazy var webView: UIWebView = {
-        let webView = UIWebView()
+    private(set) lazy var webView: WKWebView = {
+        let webView = WKWebView()
         webView.backgroundColor = .white
         webView.layer.borderWidth = 1
         webView.layer.borderColor = UIColor.black.cgColor

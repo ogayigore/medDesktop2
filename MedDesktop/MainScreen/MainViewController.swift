@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class MainViewController: UIViewController {
     
@@ -60,11 +61,27 @@ class MainViewController: UIViewController {
         addButton.setBackgroundImage(UIImage(systemName: "doc.badge.plus"), for: .normal)
         addButton.addTarget(self, action: #selector(addPatient), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addButton)
+        let logOutButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        logOutButton.setBackgroundImage(UIImage(systemName: "arrowshape.turn.up.left"), for: .normal)
+        logOutButton.addTarget(self, action: #selector(logOut), for: .touchUpInside)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logOutButton)
     }
     
     @objc private func addPatient() {
         let addPatientViewController = AddPatientViewController()
         self.present(addPatientViewController, animated: true, completion: nil)
+    }
+    
+    @objc private func logOut() {
+        do {
+            try Auth.auth().signOut()
+            
+            let authVC = AuthenticationViewController()
+            authVC.modalPresentationStyle = .fullScreen
+            present(authVC, animated: true, completion: nil)
+        } catch {
+            
+        }
     }
     
     private func searchBarSetup() {
