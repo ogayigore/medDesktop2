@@ -18,21 +18,30 @@ class AddVisitView: UIView {
         return scrollView
     }()
     
-    private(set) lazy var procedureTextField: UITextField = {
-        let textField = UITextField()
-        textField.textAlignment = .left
-        textField.attributedPlaceholder = NSAttributedString(string: "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
-        textField.placeholder = "Название процедуры"
-        textField.textColor = .black
-        textField.tintColor = .black
-        textField.layer.borderWidth = 1
-        textField.layer.cornerRadius = 10
-        textField.layer.borderColor = UIColor.black.cgColor
-        textField.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
-        textField.font = UIFont(name: "HelveticaNeue-Light", size: 28)
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+    private(set) lazy var procedureSegmentedControl: UISegmentedControl = {
+        let segmentedControl = UISegmentedControl(items: ["Первичный приём", "Повторный приём", "ЭЭГ"])
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font : UIFont(name: "HelveticaNeue-Light", size: 24)!, NSAttributedString.Key.foregroundColor: UIColor(cgColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))], for: .normal)
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font : UIFont(name: "HelveticaNeue-Light", size: 24)!, NSAttributedString.Key.foregroundColor: UIColor(cgColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))], for: .selected)
+        segmentedControl.selectedSegmentTintColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        return segmentedControl
     }()
+    
+//    private(set) lazy var procedureTextField: UITextField = {
+//        let textField = UITextField()
+//        textField.textAlignment = .left
+//        textField.attributedPlaceholder = NSAttributedString(string: "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+//        textField.placeholder = "Название процедуры"
+//        textField.textColor = .black
+//        textField.tintColor = .black
+//        textField.layer.borderWidth = 1
+//        textField.layer.cornerRadius = 10
+//        textField.layer.borderColor = UIColor.black.cgColor
+//        textField.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+//        textField.font = UIFont(name: "HelveticaNeue-Light", size: 28)
+//        textField.translatesAutoresizingMaskIntoConstraints = false
+//        return textField
+//    }()
     
     private(set) lazy var complaintLabel: UILabel = {
         let label = UILabel()
@@ -197,7 +206,8 @@ class AddVisitView: UIView {
         backgroundColor = .white
         
         addSubview(scrollView)
-        scrollView.addSubview(procedureTextField)
+//        scrollView.addSubview(procedureTextField)
+        scrollView.addSubview(procedureSegmentedControl)
         scrollView.addSubview(complaintLabel)
         scrollView.addSubview(complaintTextView)
         scrollView.addSubview(anamnesisLabel)
@@ -218,15 +228,19 @@ class AddVisitView: UIView {
             scrollView.leftAnchor.constraint(equalTo: leftAnchor),
             scrollView.rightAnchor.constraint(equalTo: rightAnchor),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            procedureTextField.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
-            procedureTextField.widthAnchor.constraint(equalToConstant: 800),
-            procedureTextField.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            procedureTextField.heightAnchor.constraint(equalToConstant: 50),
-            complaintLabel.topAnchor.constraint(equalTo: procedureTextField.bottomAnchor, constant: 16),
-            complaintLabel.leftAnchor.constraint(equalTo: procedureTextField.leftAnchor),
+//            procedureTextField.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
+//            procedureTextField.widthAnchor.constraint(equalToConstant: 800),
+//            procedureTextField.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+//            procedureTextField.heightAnchor.constraint(equalToConstant: 50),
+            procedureSegmentedControl.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
+            procedureSegmentedControl.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            procedureSegmentedControl.widthAnchor.constraint(equalToConstant: 800),
+            procedureSegmentedControl.heightAnchor.constraint(equalToConstant: 50),
+            complaintLabel.topAnchor.constraint(equalTo: procedureSegmentedControl.bottomAnchor, constant: 16),
+            complaintLabel.leftAnchor.constraint(equalTo: procedureSegmentedControl.leftAnchor),
             complaintTextView.topAnchor.constraint(equalTo: complaintLabel.bottomAnchor, constant: 8),
             complaintTextView.leftAnchor.constraint(equalTo: complaintLabel.leftAnchor),
-            complaintTextView.rightAnchor.constraint(equalTo: procedureTextField.rightAnchor),
+            complaintTextView.rightAnchor.constraint(equalTo: procedureSegmentedControl.rightAnchor),
             complaintTextView.heightAnchor.constraint(equalToConstant: 300),
             anamnesisLabel.topAnchor.constraint(equalTo: complaintTextView.bottomAnchor, constant: 16),
             anamnesisLabel.leftAnchor.constraint(equalTo: complaintTextView.leftAnchor),
@@ -268,7 +282,6 @@ class AddVisitView: UIView {
             cancelButton.widthAnchor.constraint(equalTo: formButton.widthAnchor),
             cancelButton.leftAnchor.constraint(equalTo: recomendationTextView.leftAnchor)
         ])
-        
     }
     
 }

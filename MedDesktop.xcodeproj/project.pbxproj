@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		30AC76195E525A5305657244 /* Pods_MedDesktop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81CC1538CB1917EB6C47D5D2 /* Pods_MedDesktop.framework */; };
 		5462F08626DF78CB005F1C52 /* HTMLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5462F08526DF78CB005F1C52 /* HTMLFile.swift */; };
+		5462F08826E677F2005F1C52 /* VisitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5462F08726E677F1005F1C52 /* VisitView.swift */; };
+		5462F08A26E677FE005F1C52 /* VisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5462F08926E677FE005F1C52 /* VisitViewController.swift */; };
+		5462F08F26EA22CD005F1C52 /* MedicationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5462F08E26EA22CC005F1C52 /* MedicationsView.swift */; };
+		5462F09126EA22DD005F1C52 /* MedicationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5462F09026EA22DD005F1C52 /* MedicationsViewController.swift */; };
 		547A077E268F35AD0095B74E /* ValidateCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A077D268F35AD0095B74E /* ValidateCodeView.swift */; };
 		547A0780268F35C50095B74E /* ValidateCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A077F268F35C50095B74E /* ValidateCodeViewController.swift */; };
 		547A0785269336F40095B74E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A0784269336F40095B74E /* MainViewController.swift */; };
@@ -38,6 +42,10 @@
 /* Begin PBXFileReference section */
 		0FB9FA9DD1A3AA4008CBD48E /* Pods-MedDesktop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MedDesktop.release.xcconfig"; path = "Target Support Files/Pods-MedDesktop/Pods-MedDesktop.release.xcconfig"; sourceTree = "<group>"; };
 		5462F08526DF78CB005F1C52 /* HTMLFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLFile.swift; sourceTree = "<group>"; };
+		5462F08726E677F1005F1C52 /* VisitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitView.swift; sourceTree = "<group>"; };
+		5462F08926E677FE005F1C52 /* VisitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitViewController.swift; sourceTree = "<group>"; };
+		5462F08E26EA22CC005F1C52 /* MedicationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationsView.swift; sourceTree = "<group>"; };
+		5462F09026EA22DD005F1C52 /* MedicationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationsViewController.swift; sourceTree = "<group>"; };
 		547A077D268F35AD0095B74E /* ValidateCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateCodeView.swift; sourceTree = "<group>"; };
 		547A077F268F35C50095B74E /* ValidateCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateCodeViewController.swift; sourceTree = "<group>"; };
 		547A0784269336F40095B74E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +88,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5462F08B26E67805005F1C52 /* Visit */ = {
+			isa = PBXGroup;
+			children = (
+				5462F08726E677F1005F1C52 /* VisitView.swift */,
+				5462F08926E677FE005F1C52 /* VisitViewController.swift */,
+			);
+			path = Visit;
+			sourceTree = "<group>";
+		};
+		5462F09226EA22E5005F1C52 /* Medications */ = {
+			isa = PBXGroup;
+			children = (
+				5462F08E26EA22CC005F1C52 /* MedicationsView.swift */,
+				5462F09026EA22DD005F1C52 /* MedicationsViewController.swift */,
+			);
+			path = Medications;
+			sourceTree = "<group>";
+		};
 		547A077C268F350C0095B74E /* ValidateCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +233,8 @@
 				54AC62092698671D00D4829A /* AddPatient */,
 				54AC627F26BC23FE00D4829A /* AddVisit */,
 				54A3FB2626C52CC400AD2EAA /* PrintVisit */,
+				5462F08B26E67805005F1C52 /* Visit */,
+				5462F09226EA22E5005F1C52 /* Medications */,
 				54F0750C2684B3110085CC3E /* BaseComponents */,
 				54AC620F269DC53E00D4829A /* Services */,
 				54AC62042698664B00D4829A /* Models */,
@@ -363,16 +391,20 @@
 				54A3FB1B26C52A5500AD2EAA /* VisitCell.swift in Sources */,
 				54AC62032698664400D4829A /* Patient.swift in Sources */,
 				5462F08626DF78CB005F1C52 /* HTMLFile.swift in Sources */,
+				5462F09126EA22DD005F1C52 /* MedicationsViewController.swift in Sources */,
 				54AC627A26BADF9B00D4829A /* Visit.swift in Sources */,
 				54AC627C26BC23E900D4829A /* AddVisitView.swift in Sources */,
 				54F074FB268368C30085CC3E /* AuthenticationViewController.swift in Sources */,
 				547A077E268F35AD0095B74E /* ValidateCodeView.swift in Sources */,
 				54AC627526B19AAE00D4829A /* PatientDetailsViewController.swift in Sources */,
+				5462F08A26E677FE005F1C52 /* VisitViewController.swift in Sources */,
+				5462F08F26EA22CD005F1C52 /* MedicationsView.swift in Sources */,
 				54AC620B269867AB00D4829A /* PatientCell.swift in Sources */,
 				54AC627E26BC23FA00D4829A /* AddVisitViewController.swift in Sources */,
 				54A3FB2526C52CBB00AD2EAA /* PrintVisitViewController.swift in Sources */,
 				54AC62082698671900D4829A /* AddPatientViewController.swift in Sources */,
 				54A3FB1E26C52A9600AD2EAA /* AppDelegate.swift in Sources */,
+				5462F08826E677F2005F1C52 /* VisitView.swift in Sources */,
 				547A0780268F35C50095B74E /* ValidateCodeViewController.swift in Sources */,
 				54A3FB2326C52CAD00AD2EAA /* PrintVisitView.swift in Sources */,
 				54AC62062698670A00D4829A /* AddPatientView.swift in Sources */,

@@ -35,17 +35,17 @@ class AuthenticationViewController: UIViewController {
         configureView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        DispatchQueue.main.async {
-            if Auth.auth().currentUser?.uid != nil {
-                let mainVC = MainViewController()
-                let navVC = UINavigationController(rootViewController: mainVC)
-                navVC.modalPresentationStyle = .fullScreen
-                self.present(navVC, animated: true, completion: nil)
-            }
-        }
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(true)
+//        DispatchQueue.main.async {
+//            if Auth.auth().currentUser?.uid != nil {
+//                let mainVC = MainViewController()
+//                let navVC = UINavigationController(rootViewController: mainVC)
+//                navVC.modalPresentationStyle = .fullScreen
+//                self.present(navVC, animated: true, completion: nil)
+//            }
+//        }
+//    }
 
     //MARK:- Methods
     

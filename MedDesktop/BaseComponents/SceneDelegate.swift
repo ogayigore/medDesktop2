@@ -18,11 +18,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         let navigationController = UINavigationController()
-        navigationController.addChild(AuthenticationViewController())
-        window?.rootViewController = AuthenticationViewController()
         
-//        navigationController.addChild(MainViewController())
-//        window?.rootViewController = MainViewController()
+        if Auth.auth().currentUser != nil {
+            navigationController.addChild(MainViewController())
+            window?.rootViewController = navigationController
+        } else {
+            navigationController.addChild(AuthenticationViewController())
+            window?.rootViewController = navigationController
+        }
+        
         window?.makeKeyAndVisible()
     }
     

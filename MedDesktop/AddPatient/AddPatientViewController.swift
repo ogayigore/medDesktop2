@@ -38,6 +38,7 @@ class AddPatientViewController: UIViewController {
     //MARK:- Private Methods
     
     private func configureView() {
+        customView.phoneNumberTextField.delegate = self
         customView.addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
     }
     
@@ -77,4 +78,16 @@ class AddPatientViewController: UIViewController {
         })
     }
 
+}
+
+extension AddPatientViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let textFieldText = customView.phoneNumberTextField.text,
+              let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+            return false
+        }
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + string.count
+        return count <= 11
+    }
 }

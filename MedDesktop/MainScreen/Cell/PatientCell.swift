@@ -15,9 +15,22 @@ class PatientCell: UITableViewCell {
     
     //MARK:- Private Properties
     
+    private lazy var cardNumberLabel: UILabel = {
+        let label = UILabel()
+//        label.backgroundColor = .green
+        label.textColor = .black
+        label.textAlignment = .left
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.font = UIFont(name: "HelveticaNeue-Light", size: 30)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private lazy var fullNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
+//        label.backgroundColor = .yellow
         label.font = UIFont(name: "HelveticaNeue-Light", size: 30)
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
@@ -42,16 +55,6 @@ class PatientCell: UITableViewCell {
         label.textColor = .black
         label.textAlignment = .right
 //        label.backgroundColor = .red
-        label.font = UIFont(name: "HelveticaNeue-Light", size: 30)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private lazy var cardNumberLabel: UILabel = {
-        let label = UILabel()
-//        label.backgroundColor = .green
-        label.textColor = .black
-        label.textAlignment = .right
         label.font = UIFont(name: "HelveticaNeue-Light", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -85,25 +88,26 @@ class PatientCell: UITableViewCell {
     //MARK:- Private Methods
     
     private func setup() {
+        contentView.addSubview(cardNumberLabel)
         contentView.addSubview(fullNameLabel)
         contentView.addSubview(dateOfBirthLabel)
         contentView.addSubview(ageLabel)
-        contentView.addSubview(cardNumberLabel)
         
         NSLayoutConstraint.activate([
-            fullNameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
-            fullNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            fullNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            cardNumberLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            cardNumberLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            cardNumberLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            cardNumberLabel.widthAnchor.constraint(equalToConstant: 70),
+            fullNameLabel.centerYAnchor.constraint(equalTo: cardNumberLabel.centerYAnchor),
+            fullNameLabel.leftAnchor.constraint(equalTo: cardNumberLabel.rightAnchor, constant: 8),
+            fullNameLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 400),
             dateOfBirthLabel.leftAnchor.constraint(equalTo: fullNameLabel.rightAnchor, constant: 8),
             dateOfBirthLabel.centerYAnchor.constraint(equalTo: fullNameLabel.centerYAnchor),
-            dateOfBirthLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 160),
-            dateOfBirthLabel.rightAnchor.constraint(equalTo: ageLabel.leftAnchor, constant: -8),
-            ageLabel.rightAnchor.constraint(equalTo: cardNumberLabel.leftAnchor, constant: -8),
+            dateOfBirthLabel.widthAnchor.constraint(equalToConstant: 160),
+            ageLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            ageLabel.leftAnchor.constraint(equalTo: dateOfBirthLabel.rightAnchor, constant: 8),
             ageLabel.centerYAnchor.constraint(equalTo: cardNumberLabel.centerYAnchor),
-            ageLabel.widthAnchor.constraint(equalToConstant: 150),
-            cardNumberLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-            cardNumberLabel.centerYAnchor.constraint(equalTo: fullNameLabel.centerYAnchor),
-            cardNumberLabel.widthAnchor.constraint(equalToConstant: 100)
+            ageLabel.widthAnchor.constraint(equalToConstant: 150)
         ])
     }
     

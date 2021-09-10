@@ -49,7 +49,7 @@ class MainView: UIView {
         let label = UILabel()
         label.text = "№"
         label.textColor = .black
-        label.textAlignment = .right
+        label.textAlignment = .left
         label.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -90,17 +90,17 @@ class MainView: UIView {
         dateOfBirthHeaderLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         NSLayoutConstraint.activate([
-            fullNameHeaderLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
-            fullNameHeaderLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            cardNumberHeaderLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
+            cardNumberHeaderLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            cardNumberHeaderLabel.widthAnchor.constraint(equalToConstant: 70),
+            fullNameHeaderLabel.leftAnchor.constraint(equalTo: cardNumberHeaderLabel.rightAnchor, constant: 8),
+            fullNameHeaderLabel.centerYAnchor.constraint(equalTo: cardNumberHeaderLabel.centerYAnchor),
             dateOfBirthHeaderLabel.centerYAnchor.constraint(equalTo: fullNameHeaderLabel.centerYAnchor),
             dateOfBirthHeaderLabel.leftAnchor.constraint(equalTo: fullNameHeaderLabel.rightAnchor, constant: 8),
             ageHeaderLabel.centerYAnchor.constraint(equalTo: dateOfBirthHeaderLabel.centerYAnchor),
             ageHeaderLabel.leftAnchor.constraint(equalTo: dateOfBirthHeaderLabel.rightAnchor, constant: 8),
             ageHeaderLabel.widthAnchor.constraint(equalToConstant: 150),
-            cardNumberHeaderLabel.leftAnchor.constraint(equalTo: ageHeaderLabel.rightAnchor, constant: 8),
-            cardNumberHeaderLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
-            cardNumberHeaderLabel.centerYAnchor.constraint(equalTo: fullNameHeaderLabel.centerYAnchor),
-            cardNumberHeaderLabel.widthAnchor.constraint(equalToConstant: 100),
+            ageHeaderLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
             tableView.leftAnchor.constraint(equalTo: leftAnchor),
             tableView.rightAnchor.constraint(equalTo: rightAnchor),
             tableView.topAnchor.constraint(equalTo: fullNameHeaderLabel.bottomAnchor, constant: 8),

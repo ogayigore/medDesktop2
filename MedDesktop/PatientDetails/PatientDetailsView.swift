@@ -11,6 +11,13 @@ class PatientDetailsView: UIView {
     
     //MARK:- Private Properties
     
+    private lazy var patientView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var surnameLabel: UILabel = {
         let label = UILabel()
         label.text = "Фамилия:"
@@ -163,6 +170,7 @@ class PatientDetailsView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(PatientCell.self, forCellReuseIdentifier: PatientCell.reuseIdentifier)
         tableView.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+        tableView.tableHeaderView?.backgroundColor = .white
         return tableView
     }()
     
@@ -182,21 +190,22 @@ class PatientDetailsView: UIView {
     private func setup() {
         backgroundColor = .white
         
-        addSubview(surnameLabel)
-        addSubview(nameLabel)
-        addSubview(patronymicLabel)
-        addSubview(birthdayLabel)
-        addSubview(ageLabel)
-        addSubview(phoneLabel)
-        addSubview(emailLabel)
-        addSubview(surname)
-        addSubview(name)
-        addSubview(patronymic)
-        addSubview(birthday)
-        addSubview(age)
-        addSubview(phone)
-        addSubview(email)
+        patientView.addSubview(surnameLabel)
+        patientView.addSubview(nameLabel)
+        patientView.addSubview(patronymicLabel)
+        patientView.addSubview(birthdayLabel)
+        patientView.addSubview(ageLabel)
+        patientView.addSubview(phoneLabel)
+        patientView.addSubview(emailLabel)
+        patientView.addSubview(surname)
+        patientView.addSubview(name)
+        patientView.addSubview(patronymic)
+        patientView.addSubview(birthday)
+        patientView.addSubview(age)
+        patientView.addSubview(phone)
+        patientView.addSubview(email)
         addSubview(visitTableView)
+        visitTableView.tableHeaderView = patientView
         
 //        surnameLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 //        name.setContentHuggingPriority(.defaultLow, for: .horizontal)
@@ -212,11 +221,18 @@ class PatientDetailsView: UIView {
 //        phone.setContentHuggingPriority(.defaultLow, for: .horizontal)
         
         NSLayoutConstraint.activate([
-            surnameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
-            surnameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
+            visitTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            visitTableView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
+            visitTableView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
+            visitTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            patientView.topAnchor.constraint(equalTo: visitTableView.topAnchor),
+            patientView.leftAnchor.constraint(equalTo: visitTableView.leftAnchor),
+            patientView.rightAnchor.constraint(equalTo: visitTableView.rightAnchor),
+            surnameLabel.leftAnchor.constraint(equalTo: patientView.leftAnchor, constant: 16),
+            surnameLabel.topAnchor.constraint(equalTo: patientView.topAnchor, constant: 8),
             surnameLabel.widthAnchor.constraint(equalToConstant: 350),
             surname.leftAnchor.constraint(equalTo: surnameLabel.rightAnchor, constant: 8),
-            surname.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
+            surname.rightAnchor.constraint(equalTo: patientView.rightAnchor, constant: -16),
             surname.centerYAnchor.constraint(equalTo: surnameLabel.centerYAnchor),
             nameLabel.leftAnchor.constraint(equalTo: surnameLabel.leftAnchor),
             nameLabel.topAnchor.constraint(equalTo: surnameLabel.bottomAnchor, constant: 16),
@@ -254,11 +270,57 @@ class PatientDetailsView: UIView {
             email.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 8),
             email.rightAnchor.constraint(equalTo: phone.rightAnchor),
             email.centerYAnchor.constraint(equalTo: emailLabel.centerYAnchor),
-            visitTableView.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8),
-            visitTableView.leftAnchor.constraint(equalTo: emailLabel.leftAnchor),
-            visitTableView.rightAnchor.constraint(equalTo: email.rightAnchor),
-            visitTableView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            email.bottomAnchor.constraint(equalTo: patientView.bottomAnchor, constant: -8)
         ])
+        
+//        NSLayoutConstraint.activate([
+//            surnameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
+//            surnameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
+//            surnameLabel.widthAnchor.constraint(equalToConstant: 350),
+//            surname.leftAnchor.constraint(equalTo: surnameLabel.rightAnchor, constant: 8),
+//            surname.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
+//            surname.centerYAnchor.constraint(equalTo: surnameLabel.centerYAnchor),
+//            nameLabel.leftAnchor.constraint(equalTo: surnameLabel.leftAnchor),
+//            nameLabel.topAnchor.constraint(equalTo: surnameLabel.bottomAnchor, constant: 16),
+//            nameLabel.widthAnchor.constraint(equalToConstant: 350),
+//            name.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 8),
+//            name.rightAnchor.constraint(equalTo: surname.rightAnchor),
+//            name.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
+//            patronymicLabel.leftAnchor.constraint(equalTo: nameLabel.leftAnchor),
+//            patronymicLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 16),
+//            patronymicLabel.widthAnchor.constraint(equalToConstant: 350),
+//            patronymic.leftAnchor.constraint(equalTo: patronymicLabel.rightAnchor, constant: 8),
+//            patronymic.rightAnchor.constraint(equalTo: name.rightAnchor),
+//            patronymic.centerYAnchor.constraint(equalTo: patronymicLabel.centerYAnchor),
+//            birthdayLabel.leftAnchor.constraint(equalTo: patronymicLabel.leftAnchor),
+//            birthdayLabel.topAnchor.constraint(equalTo: patronymicLabel.bottomAnchor, constant: 16),
+//            birthdayLabel.widthAnchor.constraint(equalToConstant: 350),
+//            birthday.leftAnchor.constraint(equalTo: birthdayLabel.rightAnchor, constant: 8),
+//            birthday.rightAnchor.constraint(equalTo: patronymic.rightAnchor),
+//            birthday.centerYAnchor.constraint(equalTo: birthdayLabel.centerYAnchor),
+//            ageLabel.leftAnchor.constraint(equalTo: birthdayLabel.leftAnchor),
+//            ageLabel.topAnchor.constraint(equalTo: birthdayLabel.bottomAnchor, constant: 16),
+//            ageLabel.widthAnchor.constraint(equalToConstant: 350),
+//            age.leftAnchor.constraint(equalTo: ageLabel.rightAnchor, constant: 8),
+//            age.rightAnchor.constraint(equalTo: birthday.rightAnchor),
+//            age.centerYAnchor.constraint(equalTo: ageLabel.centerYAnchor),
+//            phoneLabel.leftAnchor.constraint(equalTo: ageLabel.leftAnchor),
+//            phoneLabel.topAnchor.constraint(equalTo: ageLabel.bottomAnchor, constant: 16),
+//            phoneLabel.widthAnchor.constraint(equalToConstant: 350),
+//            phone.leftAnchor.constraint(equalTo: phoneLabel.rightAnchor, constant: 8),
+//            phone.rightAnchor.constraint(equalTo: age.rightAnchor),
+//            phone.centerYAnchor.constraint(equalTo: phoneLabel.centerYAnchor),
+//            emailLabel.leftAnchor.constraint(equalTo: phoneLabel.leftAnchor),
+//            emailLabel.topAnchor.constraint(equalTo: phoneLabel.bottomAnchor, constant: 16),
+//            emailLabel.widthAnchor.constraint(equalToConstant: 350),
+//            email.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 8),
+//            email.rightAnchor.constraint(equalTo: phone.rightAnchor),
+//            email.centerYAnchor.constraint(equalTo: emailLabel.centerYAnchor),
+//            visitTableView.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8),
+//            visitTableView.leftAnchor.constraint(equalTo: emailLabel.leftAnchor),
+//            visitTableView.rightAnchor.constraint(equalTo: email.rightAnchor),
+//            visitTableView.bottomAnchor.constraint(equalTo: bottomAnchor)
+//        ])
         
     }
 }

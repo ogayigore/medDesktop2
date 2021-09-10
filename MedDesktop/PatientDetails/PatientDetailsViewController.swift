@@ -115,7 +115,14 @@ extension PatientDetailsViewController: UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
+        let visitVC = VisitViewController()
+        let patient = patient
+        let visit = dbService.visitsArray[indexPath.row]
+        visitVC.patient = patient
+        visitVC.visit = visit
+        self.navigationController?.pushViewController(visitVC, animated: true)
     }
 
 }
