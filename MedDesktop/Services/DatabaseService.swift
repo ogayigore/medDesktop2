@@ -53,24 +53,38 @@ class DatabaseService {
         }
     }
 
-    func addPatient(patientDict: [String: Any]) {
-        ref = db.collection("patients").addDocument(data: patientDict, completion: { error in
-            if let error = error {
-                print("Error adding document \(error.localizedDescription)")
-            } else {
-                print("Document added with ID: \(self.ref?.documentID)")
-                guard let docId = self.ref?.documentID else { return }
-                self.db.collection("patients").document(docId).updateData([
-                    "docId": "\(docId)"
-                ]) { err in
-                    if let err = err {
-                        print("Error updating document: \(err)")
-                    } else {
-                        print("Document successfully updated")
+    func addPatient(patientDict: [String: Any], patient: Patient, completion: @escaping (Bool) -> ()) {
+        
+        if patient.docId == "" {
+            ref = db.collection("patients").addDocument(data: patientDict, completion: { error in
+                if let error = error {
+                    print("Error adding document \(error.localizedDescription)")
+                } else {
+                    print("Document added with ID: \(self.ref?.documentID)")
+                    guard let docId = self.ref?.documentID else { return }
+                    self.db.collection("patients").document(docId).updateData([
+                        "docId": "\(docId)"
+                    ]) { err in
+                        if let err = err {
+                            print("Error updating document: \(err)")
+                        } else {
+                            print("Document successfully updated")
+                        }
                     }
+                    completion(true)
                 }
+            })
+        } else {
+            ref = db.collection("patients").document(patient.docId)
+            ref?.setData(patientDict) { error in
+                guard error == nil else {
+                    print("Error updating document - \(error!.localizedDescription)")
+                    return completion(false)
+                }
+                print("Updated document: \(patient.docId)")
+                completion(true)
             }
-        })
+        }
     }
     
 }

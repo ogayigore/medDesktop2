@@ -13,11 +13,14 @@
 		5462F08A26E677FE005F1C52 /* VisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5462F08926E677FE005F1C52 /* VisitViewController.swift */; };
 		5462F08F26EA22CD005F1C52 /* MedicationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5462F08E26EA22CC005F1C52 /* MedicationsView.swift */; };
 		5462F09126EA22DD005F1C52 /* MedicationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5462F09026EA22DD005F1C52 /* MedicationsViewController.swift */; };
+		5462F09426EB981D005F1C52 /* ImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5462F09326EB981D005F1C52 /* ImagesCollectionViewCell.swift */; };
 		547A077E268F35AD0095B74E /* ValidateCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A077D268F35AD0095B74E /* ValidateCodeView.swift */; };
 		547A0780268F35C50095B74E /* ValidateCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A077F268F35C50095B74E /* ValidateCodeViewController.swift */; };
 		547A0785269336F40095B74E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A0784269336F40095B74E /* MainViewController.swift */; };
 		547A0787269336FE0095B74E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A0786269336FE0095B74E /* MainView.swift */; };
-		54A3FB1B26C52A5500AD2EAA /* VisitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3FB1A26C52A5500AD2EAA /* VisitCell.swift */; };
+		54A0661F26EF43B200710454 /* Mkb10View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A0661E26EF43B200710454 /* Mkb10View.swift */; };
+		54A0662126EF43C400710454 /* Mkb10ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A0662026EF43C400710454 /* Mkb10ViewController.swift */; };
+		54A3FB1B26C52A5500AD2EAA /* VisitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3FB1A26C52A5500AD2EAA /* VisitTableViewCell.swift */; };
 		54A3FB1E26C52A9600AD2EAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3FB1C26C52A9600AD2EAA /* AppDelegate.swift */; };
 		54A3FB1F26C52A9600AD2EAA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3FB1D26C52A9600AD2EAA /* SceneDelegate.swift */; };
 		54A3FB2126C52AC600AD2EAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54A3FB2026C52AC600AD2EAA /* LaunchScreen.storyboard */; };
@@ -46,11 +49,14 @@
 		5462F08926E677FE005F1C52 /* VisitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitViewController.swift; sourceTree = "<group>"; };
 		5462F08E26EA22CC005F1C52 /* MedicationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationsView.swift; sourceTree = "<group>"; };
 		5462F09026EA22DD005F1C52 /* MedicationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationsViewController.swift; sourceTree = "<group>"; };
+		5462F09326EB981D005F1C52 /* ImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCollectionViewCell.swift; sourceTree = "<group>"; };
 		547A077D268F35AD0095B74E /* ValidateCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateCodeView.swift; sourceTree = "<group>"; };
 		547A077F268F35C50095B74E /* ValidateCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateCodeViewController.swift; sourceTree = "<group>"; };
 		547A0784269336F40095B74E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		547A0786269336FE0095B74E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		54A3FB1A26C52A5500AD2EAA /* VisitCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitCell.swift; sourceTree = "<group>"; };
+		54A0661E26EF43B200710454 /* Mkb10View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mkb10View.swift; sourceTree = "<group>"; };
+		54A0662026EF43C400710454 /* Mkb10ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mkb10ViewController.swift; sourceTree = "<group>"; };
+		54A3FB1A26C52A5500AD2EAA /* VisitTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitTableViewCell.swift; sourceTree = "<group>"; };
 		54A3FB1C26C52A9600AD2EAA /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54A3FB1D26C52A9600AD2EAA /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		54A3FB2026C52AC600AD2EAA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -134,6 +140,15 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
+		54A0662226EF43CA00710454 /* MKB10 */ = {
+			isa = PBXGroup;
+			children = (
+				54A0661E26EF43B200710454 /* Mkb10View.swift */,
+				54A0662026EF43C400710454 /* Mkb10ViewController.swift */,
+			);
+			path = MKB10;
+			sourceTree = "<group>";
+		};
 		54A3FB2626C52CC400AD2EAA /* PrintVisit */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,17 +198,18 @@
 			children = (
 				54AC626F26B189E800D4829A /* PatientDetailsView.swift */,
 				54AC627426B19AAE00D4829A /* PatientDetailsViewController.swift */,
-				54AC627826BADAE800D4829A /* Cell */,
+				54AC627826BADAE800D4829A /* Cells */,
 			);
 			path = PatientDetails;
 			sourceTree = "<group>";
 		};
-		54AC627826BADAE800D4829A /* Cell */ = {
+		54AC627826BADAE800D4829A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				54A3FB1A26C52A5500AD2EAA /* VisitCell.swift */,
+				54A3FB1A26C52A5500AD2EAA /* VisitTableViewCell.swift */,
+				5462F09326EB981D005F1C52 /* ImagesCollectionViewCell.swift */,
 			);
-			path = Cell;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		54AC627F26BC23FE00D4829A /* AddVisit */ = {
@@ -235,6 +251,7 @@
 				54A3FB2626C52CC400AD2EAA /* PrintVisit */,
 				5462F08B26E67805005F1C52 /* Visit */,
 				5462F09226EA22E5005F1C52 /* Medications */,
+				54A0662226EF43CA00710454 /* MKB10 */,
 				54F0750C2684B3110085CC3E /* BaseComponents */,
 				54AC620F269DC53E00D4829A /* Services */,
 				54AC62042698664B00D4829A /* Models */,
@@ -388,8 +405,10 @@
 			files = (
 				547A0785269336F40095B74E /* MainViewController.swift in Sources */,
 				547A0787269336FE0095B74E /* MainView.swift in Sources */,
-				54A3FB1B26C52A5500AD2EAA /* VisitCell.swift in Sources */,
+				54A3FB1B26C52A5500AD2EAA /* VisitTableViewCell.swift in Sources */,
 				54AC62032698664400D4829A /* Patient.swift in Sources */,
+				54A0662126EF43C400710454 /* Mkb10ViewController.swift in Sources */,
+				54A0661F26EF43B200710454 /* Mkb10View.swift in Sources */,
 				5462F08626DF78CB005F1C52 /* HTMLFile.swift in Sources */,
 				5462F09126EA22DD005F1C52 /* MedicationsViewController.swift in Sources */,
 				54AC627A26BADF9B00D4829A /* Visit.swift in Sources */,
@@ -402,6 +421,7 @@
 				54AC620B269867AB00D4829A /* PatientCell.swift in Sources */,
 				54AC627E26BC23FA00D4829A /* AddVisitViewController.swift in Sources */,
 				54A3FB2526C52CBB00AD2EAA /* PrintVisitViewController.swift in Sources */,
+				5462F09426EB981D005F1C52 /* ImagesCollectionViewCell.swift in Sources */,
 				54AC62082698671900D4829A /* AddPatientViewController.swift in Sources */,
 				54A3FB1E26C52A9600AD2EAA /* AppDelegate.swift in Sources */,
 				5462F08826E677F2005F1C52 /* VisitView.swift in Sources */,

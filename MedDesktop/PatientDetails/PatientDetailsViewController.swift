@@ -17,6 +17,8 @@ class PatientDetailsViewController: UIViewController {
     
     var dbService: DatabaseService!
     var patient: Patient?
+    let imagesArray = [UIImage(named: "bank"), UIImage(named: "bank"), UIImage(named: "bank"), UIImage(named: "bank"), UIImage(named: "bank"), UIImage(named: "bank"), UIImage(named: "bank"), UIImage(named: "bank"), UIImage(named: "bank"), UIImage(named: "bank"), UIImage(named: "bank"), UIImage(named: "bank"), UIImage(named: "bank"), UIImage(named: "bank"), UIImage(named: "bank"), UIImage(named: "bank"), UIImage(named: "bank"), UIImage(named: "bank")]
+//    let imagesArray = [UIImage]()
     
     //MARK:- Lifecycle
     
@@ -70,9 +72,14 @@ class PatientDetailsViewController: UIViewController {
         customView.visitTableView.dataSource = self
         customView.visitTableView.delegate = self
         
-        customView.visitTableView.register(VisitCell.self, forCellReuseIdentifier: VisitCell.reuseIdentifier)
+        customView.imagesCollectionView.dataSource = self
+        customView.imagesCollectionView.delegate = self
+        
+        customView.visitTableView.register(VisitTableViewCell.self, forCellReuseIdentifier: VisitTableViewCell.reuseIdentifier)
+        
+        customView.addPhotoButton.addTarget(self, action: #selector(addPhoto), for: .touchUpInside)
     }
-
+    
     private func calcAge(birthday: String) -> String! {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
@@ -103,7 +110,7 @@ extension PatientDetailsViewController: UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: VisitCell.reuseIdentifier, for: indexPath) as? VisitCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: VisitTableViewCell.reuseIdentifier, for: indexPath) as? VisitTableViewCell else {
             
             return UITableViewCell()
         }
@@ -125,4 +132,41 @@ extension PatientDetailsViewController: UITableViewDataSource, UITableViewDelega
         self.navigationController?.pushViewController(visitVC, animated: true)
     }
 
+}
+
+//MARK:- UICollectionViewDelegate & UICollectionViewDataSource
+
+extension PatientDetailsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return imagesArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImagesCollectionViewCell.reuseIdentifier, for: indexPath) as? ImagesCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        let image = imagesArray[indexPath.row]
+        
+        cell.configure(image: image!)
+        cell.layer.cornerRadius = 20
+        cell.clipsToBounds = true
+        
+        return cell
+    }
+    
+}
+
+extension PatientDetailsViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    @objc private func addPhoto() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .camera
+        imagePicker.allowsEditing = false
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
 }

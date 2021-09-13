@@ -30,8 +30,9 @@ class HTMLFile {
             </head>
             <body>
                 <div class="parent">
-                <h2 align="center">Консультация невролога</h2>
+                <h3 align="center">Консультация невролога</h3>
                     <div class="child">
+                    <font size=2>
                         <b>Номер карты: \(patient.cardNumber)<br>
                         ФИО: \(patientFullName)<br>
                         Дата рождения: \(patient.dateOfBirth)<br>
@@ -52,6 +53,7 @@ class HTMLFile {
                         \(visit.recomendation)</p><br>
                         <p><b>Врач Цой Лариса Семеновна</b><br>
                         \(visit.date)</p>
+                    </font>
                     </div>
                 </div>
             </body>

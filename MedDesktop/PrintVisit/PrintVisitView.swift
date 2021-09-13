@@ -12,16 +12,6 @@ class PrintVisitView: UIView {
     
     //MARK:- Private Properties
     
-    private(set) lazy var printTextView: UITextView = {
-        let textView = UITextView()
-        textView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        textView.layer.borderWidth = 1
-        textView.layer.borderColor = UIColor.black.cgColor
-        textView.font = UIFont(name: "HelveticaNeue-Light", size: 20)
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        return textView
-    }()
-    
     private(set) lazy var webView: WKWebView = {
         let webView = WKWebView()
         webView.backgroundColor = .white
@@ -73,16 +63,11 @@ class PrintVisitView: UIView {
     private func setup() {
         backgroundColor = .white
         
-//        addSubview(printTextView)
         addSubview(webView)
         addSubview(printButton)
         addSubview(cancelButton)
         
         NSLayoutConstraint.activate([
-//            printTextView.topAnchor.constraint(equalTo: topAnchor, constant: 64),
-//            printTextView.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            printTextView.widthAnchor.constraint(equalToConstant: 800),
-//            printButton.topAnchor.constraint(equalTo: printTextView.bottomAnchor, constant: 16),
             webView.topAnchor.constraint(equalTo: topAnchor, constant: 64),
             webView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             webView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),

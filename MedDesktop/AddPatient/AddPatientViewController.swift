@@ -62,9 +62,14 @@ class AddPatientViewController: UIViewController {
         } else {
             let newPatient = Patient(docId: "", cardNumber: cardNumber, surname: surname, name: name, patronymic: patronymic, dateOfBirth: dateOfBirthString, phoneNumber: phoneNumber, email: email)
            
-            dbService?.addPatient(patientDict: newPatient.dictionary)
-            
-            dismiss(animated: true, completion: nil)
+            dbService?.addPatient(patientDict: newPatient.dictionary, patient: newPatient, completion: { success in
+                if success {
+                    print("OK")
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    print("ERROR")
+                }
+            })
         }
     }
     

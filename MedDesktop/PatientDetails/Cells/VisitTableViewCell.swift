@@ -7,11 +7,11 @@
 
 import UIKit
 
-class VisitCell: UITableViewCell {
+class VisitTableViewCell: UITableViewCell {
     
     //MARK:- Public Properties
     
-    static let reuseIdentifier = "visitCell"
+    static let reuseIdentifier = "visitTableViewCell"
     
     //MARK:-  Private Properties
     
@@ -47,7 +47,7 @@ class VisitCell: UITableViewCell {
     //MARK:- Initializers
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: VisitCell.reuseIdentifier)
+        super.init(style: style, reuseIdentifier: VisitTableViewCell.reuseIdentifier)
         setup()
     }
     

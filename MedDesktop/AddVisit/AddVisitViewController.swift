@@ -22,6 +22,13 @@ class AddVisitViewController: UIViewController {
     private var visitNumber = 0
     private var price = 0.0
     private var procedureName = ""
+    private var sampleString = """
+            Состояние удовлетворительное. Конституция нормостеническое. Питание - нормальное.
+            АД - 110/70. ЧМН: лицо симметрично OD=OS. Зрачки равновеликие, фотореакции сохранены, нистагма нет.
+            Носогубные складки симметричны, язык по средней линии. Слух не нарушен. Чувствительность не изменена. Точки Валле — безболезненны.
+            Мышечный тонус — умеренная гипертония паравертебральных мышц шейного, поясничного отделов, трапециевидных мышц спины. Пальпаторно: по ходу остистых отростков безболезненны. Симптомы натяжения: Лассега отрицательный, Нери — отрицательный.
+            Чувствительных расстройств нет. Сухожильные рефлексы — вызываются, симметричные, паталогических рефлексов нет. Движения в полном объеме.
+            """
     
     //MARK:- Lifecycle
     
@@ -43,13 +50,8 @@ class AddVisitViewController: UIViewController {
     //MARK:- Private Methods
     
     private func configureView() {
-        customView.complaintTextView.delegate = self
-        customView.anamnesisTextView.delegate = self
-        customView.statusTextView.delegate = self
-        customView.diagnosisTextView.delegate = self
-        customView.appointmentTextView.delegate = self
-        customView.recomendationTextView.delegate = self
-        createToolbar(textView: customView.appointmentTextView)
+        createToolbar(textView: customView.appointmentTextView, form: .appointment)
+        createToolbar(textView: customView.diagnosisTextView, form: .diagnosis)
         customView.formButton.addTarget(self, action: #selector(formButtonTapped), for: .touchUpInside)
         customView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         customView.procedureSegmentedControl.addTarget(self, action: #selector(segmentedAction(sender:)), for: .valueChanged)
@@ -58,8 +60,23 @@ class AddVisitViewController: UIViewController {
     @objc private func formButtonTapped() {
         
         let currentDate = getCurrentDate()
+        guard let complaintString = customView.complaintTextView.text,
+              let anamnesisString = customView.anamnesisTextView.text,
+              let diagnosisString = customView.diagnosisTextView.text,
+              let appointmentString = customView.appointmentTextView.text,
+              let recomendationString = customView.recomendationTextView.text else { return }
         
-        visit = Visit(procedureName: procedureName, date: currentDate, price: price, complaint: customView.complaintTextView.text!, anamnesis: customView.anamnesisTextView.text!, status: customView.statusTextView.text!, diagnosis: customView.diagnosisTextView.text!, appointment: customView.appointmentTextView.text!, recomendation: customView.recomendationTextView.text!, docId: "", visitNumber: visitNumber)
+        visit = Visit(procedureName: procedureName,
+                      date: currentDate,
+                      price: price,
+                      complaint: update(string: complaintString),
+                      anamnesis: update(string: anamnesisString),
+                      status: update(string: sampleString),
+                      diagnosis: update(string: diagnosisString),
+                      appointment: update(string: appointmentString),
+                      recomendation: update(string: recomendationString),
+                      docId: "",
+                      visitNumber: visitNumber)
         
         let printVisitViewController = PrintVisitViewController()
         printVisitViewController.modalPresentationStyle = .fullScreen
@@ -88,21 +105,13 @@ class AddVisitViewController: UIViewController {
         case 1:
             procedureName = "Первичный приём"
             price = 1000
-            customView.statusTextView.text = """
-            Состояние удовлетворительное. Питание - повышенное.
-            <br>АД - . ЧМН: лицо симметрично OD=OS. Зрачки равновеликие, фотореакции сохранены, нистагма нет.
-            <br>Носогубные складки симметричны, язык по средней линии. Слух не нарушен. Чувствительность не изменена
-            """
+            customView.statusTextView.text = sampleString
             customView.appointmentTextView.text = ""
             customView.recomendationTextView.text = ""
         case 2:
             procedureName = "Повторный приём"
             price = 1200
-            customView.statusTextView.text = """
-            Состояние удовлетворительное. Питание - повышенное.
-            <br>АД - . ЧМН: лицо симметрично OD=OS. Зрачки равновеликие, фотореакции сохранены, нистагма нет.
-            <br>Носогубные складки симметричны, язык по средней линии. Слух не нарушен. Чувствительность не изменена
-            """
+            customView.statusTextView.text = sampleString
             customView.recomendationTextView.text = ""
         case 3:
             print("CASE 3")
@@ -112,6 +121,11 @@ class AddVisitViewController: UIViewController {
             break
         }
         
+    }
+    
+    private func update(string: String) -> String {
+        let updatedString = string.replacingOccurrences(of: "\n", with: "\n<br>")
+        return updatedString
     }
     
     private func getCurrentDate() -> String {
@@ -151,31 +165,37 @@ class AddVisitViewController: UIViewController {
         })
     }
     
-    private func createToolbar(textView: UITextView) {
+    private func createToolbar(textView: UITextView, form: TextViewEnum) {
         let toolbar = UIToolbar()
         toolbar.barStyle = UIBarStyle.default
         toolbar.sizeToFit()
-        let medications = UIBarButtonItem(title: "Лекарства", style: UIBarButtonItem.Style.plain, target: self, action: #selector(openVC))
-        toolbar.items = [medications]
-        textView.inputAccessoryView = toolbar
+        switch form {
+        case .appointment:
+            let medications = UIBarButtonItem(title: "Лекарства", style: .plain, target: self, action: #selector(openMedicationVC))
+            toolbar.items = [medications]
+            textView.inputAccessoryView = toolbar
+        case .diagnosis:
+            let mkb10 = UIBarButtonItem(title: "МКБ-10", style: .plain, target: self, action: #selector(openMkb10VC))
+            toolbar.items = [mkb10]
+            textView.inputAccessoryView = toolbar
+        }
+        
+    }
+    
+    @objc private func openMkb10VC() {
+        let mkb10VC = Mkb10ViewController()
+        mkb10VC.modalPresentationStyle = .pageSheet
+        present(mkb10VC, animated: true, completion: nil)
     }
 
-    @objc private func openVC() {
+    @objc private func openMedicationVC() {
         let medicationsVC = MedicationsViewController()
         medicationsVC.modalPresentationStyle = .pageSheet
         present(medicationsVC, animated: true, completion: nil)
     }
     
-}
-
-extension AddVisitViewController: UITextViewDelegate {
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if textView.text.last == "\n" {
-            textView.text += "<br>"
-            print("TEXT - \(textView.text)")
-            return false
-        }
-        return true
+    private enum TextViewEnum {
+        case diagnosis
+        case appointment
     }
 }

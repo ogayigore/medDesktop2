@@ -165,6 +165,36 @@ class PatientDetailsView: UIView {
         return label
     }()
     
+    private(set) lazy var addPhotoButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+        button.layer.borderWidth = 1
+        button.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        button.layer.cornerRadius = 20
+        button.setImage(UIImage(systemName: "camera", withConfiguration: UIImage.SymbolConfiguration(pointSize: 100, weight: .light, scale: .small)), for: .normal)
+        button.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private lazy var collectionLayout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 8
+        layout.itemSize = CGSize(width: 150, height: 150)
+        layout.scrollDirection = .horizontal
+        return layout
+    }()
+    
+    private(set) lazy var imagesCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionLayout)
+        collectionView.backgroundColor = .white
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.register(ImagesCollectionViewCell.self, forCellWithReuseIdentifier: ImagesCollectionViewCell.reuseIdentifier)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    
     private(set) lazy var visitTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -204,6 +234,8 @@ class PatientDetailsView: UIView {
         patientView.addSubview(age)
         patientView.addSubview(phone)
         patientView.addSubview(email)
+        patientView.addSubview(addPhotoButton)
+        patientView.addSubview(imagesCollectionView)
         addSubview(visitTableView)
         visitTableView.tableHeaderView = patientView
         
@@ -225,9 +257,7 @@ class PatientDetailsView: UIView {
             visitTableView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
             visitTableView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
             visitTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            patientView.topAnchor.constraint(equalTo: visitTableView.topAnchor),
-            patientView.leftAnchor.constraint(equalTo: visitTableView.leftAnchor),
-            patientView.rightAnchor.constraint(equalTo: visitTableView.rightAnchor),
+            patientView.widthAnchor.constraint(equalTo: visitTableView.widthAnchor),
             surnameLabel.leftAnchor.constraint(equalTo: patientView.leftAnchor, constant: 16),
             surnameLabel.topAnchor.constraint(equalTo: patientView.topAnchor, constant: 8),
             surnameLabel.widthAnchor.constraint(equalToConstant: 350),
@@ -270,7 +300,16 @@ class PatientDetailsView: UIView {
             email.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 8),
             email.rightAnchor.constraint(equalTo: phone.rightAnchor),
             email.centerYAnchor.constraint(equalTo: emailLabel.centerYAnchor),
-            email.bottomAnchor.constraint(equalTo: patientView.bottomAnchor, constant: -8)
+            addPhotoButton.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8),
+            addPhotoButton.leftAnchor.constraint(equalTo: emailLabel.leftAnchor),
+            addPhotoButton.bottomAnchor.constraint(equalTo: patientView.bottomAnchor, constant: -8),
+            addPhotoButton.heightAnchor.constraint(equalToConstant: 150),
+            addPhotoButton.widthAnchor.constraint(equalToConstant: 150),
+            imagesCollectionView.leftAnchor.constraint(equalTo: addPhotoButton.rightAnchor, constant: 8),
+            imagesCollectionView.centerYAnchor.constraint(equalTo: addPhotoButton.centerYAnchor),
+            imagesCollectionView.rightAnchor.constraint(equalTo: email.rightAnchor),
+            imagesCollectionView.heightAnchor.constraint(equalTo: addPhotoButton.heightAnchor)
+            
         ])
         
 //        NSLayoutConstraint.activate([
