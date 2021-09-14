@@ -13,6 +13,8 @@ class PatientDetailsViewController: UIViewController {
     
     private(set) lazy var customView = view as! PatientDetailsView
     
+    private var navButtons = [UIBarButtonItem]()
+    
     //MARK:- Public Properties
     
     var dbService: DatabaseService!
@@ -45,10 +47,14 @@ class PatientDetailsViewController: UIViewController {
     //MARK:- Private Methods
     
     private func barButtonsConfigure() {
-        let addButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        addButton.setBackgroundImage(UIImage(systemName: "plus"), for: .normal)
-        addButton.addTarget(self, action: #selector(addVisit), for: .touchUpInside)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addButton)
+        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .large)), style: .plain, target: self, action: #selector(addVisit))
+        navButtons.append(addButton)
+        let changeButton = UIBarButtonItem(image: UIImage(systemName: "rectangle.and.pencil.and.ellipsis", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .large)), style: .plain, target: self, action: #selector(changeInfo))
+        navButtons.append(changeButton)
+        let saveButton = UIBarButtonItem(image: UIImage(systemName: "checkmark.rectangle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .large)), style: .plain, target: self, action: #selector(saveChanges))
+        saveButton.isEnabled = false
+        navButtons.append(saveButton)
+        self.navigationItem.rightBarButtonItems = navButtons
     }
     
     @objc private func addVisit() {
@@ -56,6 +62,69 @@ class PatientDetailsViewController: UIViewController {
         addVisitViewController.patient = patient
         addVisitViewController.modalPresentationStyle = .fullScreen
         present(addVisitViewController, animated: true, completion: nil)
+    }
+    
+    @objc private func changeInfo() {
+        navigationItem.rightBarButtonItems![2].isEnabled = true
+        
+        customView.surname.isUserInteractionEnabled = true
+        customView.surname.borderStyle = .roundedRect
+        customView.name.isUserInteractionEnabled = true
+        customView.name.borderStyle = .roundedRect
+        customView.patronymic.isUserInteractionEnabled = true
+        customView.patronymic.borderStyle = .roundedRect
+        customView.birthday.isUserInteractionEnabled = true
+        customView.birthday.borderStyle = .roundedRect
+        customView.phone.isUserInteractionEnabled = true
+        customView.phone.borderStyle = .roundedRect
+        customView.email.isUserInteractionEnabled = true
+        customView.email.borderStyle = .roundedRect
+    }
+    
+    @objc private func saveChanges() {
+        navigationItem.rightBarButtonItems![2].isEnabled = false
+        
+        guard let docId = patient?.docId,
+              let cardNumber = patient?.cardNumber,
+              let surname = customView.surname.text,
+              let name = customView.name.text,
+              let patronymic = customView.patronymic.text,
+              let birthday = customView.birthday.text,
+              let phone = customView.phone.text,
+              let email = customView.email.text else {
+            return
+        }
+        
+        let newInfoPatient = Patient(docId: docId,
+                                     cardNumber: cardNumber,
+                                     surname: surname,
+                                     name: name,
+                                     patronymic: patronymic,
+                                     dateOfBirth: birthday,
+                                     phoneNumber: phone,
+                                     email: email)
+        
+        dbService.addPatient(patientDict: newInfoPatient.dictionary, patient: newInfoPatient) { [self] success in
+            if success {
+                print("OK")
+                self.changeInfo()
+                self.customView.surname.isUserInteractionEnabled = false
+                self.customView.surname.borderStyle = .none
+                self.customView.name.isUserInteractionEnabled = false
+                self.customView.name.borderStyle = .none
+                self.customView.patronymic.isUserInteractionEnabled = false
+                self.customView.patronymic.borderStyle = .none
+                self.customView.birthday.isUserInteractionEnabled = false
+                self.customView.birthday.borderStyle = .none
+                self.customView.phone.isUserInteractionEnabled = false
+                self.customView.phone.borderStyle = .none
+                self.customView.email.isUserInteractionEnabled = false
+                self.customView.email.borderStyle = .none
+                
+            } else {
+                print("ERROR")
+            }
+        }
     }
     
     private func setup() {
@@ -170,3 +239,4 @@ extension PatientDetailsViewController: UINavigationControllerDelegate, UIImageP
     }
     
 }
+

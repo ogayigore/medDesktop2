@@ -57,12 +57,12 @@ class MainViewController: UIViewController {
     }
     
     private func barButtonsConfigure() {
-        let addButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        addButton.setBackgroundImage(UIImage(systemName: "doc.badge.plus"), for: .normal)
+        let addButton = UIButton()
+        addButton.setBackgroundImage(UIImage(systemName: "doc.badge.plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .large)), for: .normal)
         addButton.addTarget(self, action: #selector(addPatient), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addButton)
-        let logOutButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        logOutButton.setBackgroundImage(UIImage(systemName: "arrowshape.turn.up.left"), for: .normal)
+        let logOutButton = UIButton()
+        logOutButton.setBackgroundImage(UIImage(systemName: "arrowshape.turn.up.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .large)), for: .normal)
         logOutButton.addTarget(self, action: #selector(logOut), for: .touchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logOutButton)
     }
